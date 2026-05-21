@@ -1,0 +1,58 @@
+package co.edu.uniquindio.manejoEventos.controller;
+
+import co.edu.uniquindio.manejoEventos.model.EventManager;
+import co.edu.uniquindio.manejoEventos.model.Place;
+
+import java.util.ArrayList;
+
+public class PlaceController {
+
+    public static void addPlace(Place place){
+        System.out.println("Successfully created");
+        EventManager.getInstance().addPlace(place);
+    }
+
+    public static Place searchPlaceById(String id){
+        for(Place place : EventManager.getInstance().getPlaceList()){
+            if(place.getIdPlace().equals(id)){
+                System.out.println("Place: "+id+" found");
+                return place;
+            }
+            else {
+                System.out.println("Place: "+id+" not found");
+            }
+        }
+        return null;
+    }
+
+
+    public static void updatePlace(Place placeUpdate){
+        for(Place place : EventManager.getInstance().getPlaceList()) {
+            if (place.getIdPlace().equals(placeUpdate.getIdPlace())) {
+                if(placeUpdate.getName() != null){
+                    place.setName(placeUpdate.getName());}
+                if(placeUpdate.getAddress() != null){
+                    place.setAddress(placeUpdate.getAddress());}
+                if(placeUpdate.getZoneList() != null){
+                    place.setZoneList(placeUpdate.getZoneList());}
+                if(placeUpdate.getEventList() != null){
+                    place.setEventList(placeUpdate.getEventList());}
+                return;
+            }
+        }
+    }
+
+
+    public static void removePlace(Place place){
+        if(searchPlaceById(place.getIdPlace()) != null){
+            EventManager.getInstance().removePlace(place);
+            System.out.println("Successfully deleted");
+        } else {
+            System.out.println("Couldn't delete, place not found");
+        }
+    }
+    public static ArrayList<Place> listPlaces(){
+        return EventManager.getInstance().getPlaceList();
+    }
+
+}

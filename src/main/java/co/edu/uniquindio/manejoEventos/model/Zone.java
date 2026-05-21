@@ -1,0 +1,67 @@
+package co.edu.uniquindio.manejoEventos.model;
+
+import co.edu.uniquindio.manejoEventos.model.Enums.ChairStatus;
+import co.edu.uniquindio.manejoEventos.model.Interfaces.Composite;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.util.ArrayList;
+
+@Getter
+@Setter
+@Builder
+public class Zone implements Composite {
+    private String idZone, name;
+    private int capacity;
+    private double startingPrice;
+    @ToString.Exclude @Builder.Default
+    private ArrayList<Chair> chairList = new ArrayList<>();
+
+
+    public void addChair(Chair chair) {
+        chairList.add(chair);
+    }
+    public void removeChair(Chair chair) {
+        chairList.remove(chair);
+    }
+    public ArrayList<Chair> getChildren() {
+        return chairList;
+
+    }
+    public Chair getChairById(String id) {
+        for (Chair c : chairList) {
+            if (c.getIdChair().equals(id)) {
+                return c;
+            }
+        }
+        System.out.println("Chair not found");
+        return null;
+    }
+
+    @Override
+    public ArrayList<Chair> getAvailableChairs() {
+        ArrayList<Chair> c = new ArrayList<>();
+        for(Chair chair : chairList) {
+            if (chair.getChairStatus() == ChairStatus.AVAILABLE) {
+                c.add(chair);
+            }
+        }
+        return c;
+    }
+
+    @Override
+    public String toString() {
+        return
+                        "   ID: " + idZone + "\n" +
+                        "   Name: " + name + "\n" +
+                        "   Capacity: " + capacity + "\n"+"\n";
+    }
+
+
+    /*
+    setProperties();
+     */
+
+}
