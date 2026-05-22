@@ -137,9 +137,9 @@ public class PurchaseView implements Initializable {
 
             if (chair.getChairStatus() != ChairStatus.AVAILABLE && !isEditChair) {
                 btn.setDisable(true);
-                btn.setStyle("-fx-background-color: #ffcccc;");
+                btn.setStyle("-fx-background-color: #ff1f1f;");
             } else {
-                btn.setStyle("-fx-background-color: #ccffcc;");
+                btn.setStyle("-fx-background-color: #1cff1c;");
                 if (isEditChair) {
                     btn.setSelected(true);
                     selectedChairs.add(chair);
@@ -153,7 +153,7 @@ public class PurchaseView implements Initializable {
                     btn.setStyle("-fx-background-color: #ccccff;");
                 } else {
                     selectedChairs.remove(chair);
-                    btn.setStyle("-fx-background-color: #ccffcc;");
+                    btn.setStyle("-fx-background-color: #1cff1c;");
                 }
                 updateTotalCost();
             });

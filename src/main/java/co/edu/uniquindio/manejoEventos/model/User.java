@@ -135,12 +135,10 @@ public class User implements Observer {
 
     @Override
     public String toString() {
-        return
-                        "   ID: " + id + "\n" +
-                        "   Name: " + fullName + "\n" +
-                        "   Email: " + email + "\n" +
-                                "   Phone Number: "  + phoneNumber;
-
+        return "ID: " + id + "\n" +
+               "Nombre: " + fullName + "\n" +
+               "Correo: " + email + "\n" +
+               "Celular: " + phoneNumber;
     }
 
     @Override

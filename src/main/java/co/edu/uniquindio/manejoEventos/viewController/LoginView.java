@@ -1,6 +1,7 @@
 package co.edu.uniquindio.manejoEventos.viewController;
 
 import co.edu.uniquindio.manejoEventos.Application;
+import co.edu.uniquindio.manejoEventos.ThemeManager;
 import co.edu.uniquindio.manejoEventos.controller.AdminController;
 import co.edu.uniquindio.manejoEventos.model.*;
 import co.edu.uniquindio.manejoEventos.model.Interfaces.ServiceProxy;
@@ -55,6 +56,7 @@ public class LoginView {
             if (!b) {//Change to mainMenu
                 FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("mainMenu.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
+                ThemeManager.applyTheme(scene);
                 stage.setResizable(false);
                 stage.setTitle("Main Menu");
                 stage.setScene(scene);
@@ -62,6 +64,7 @@ public class LoginView {
             } else if (b) {
                 FXMLLoader fxmlLoader2 = new FXMLLoader(Application.class.getResource("adminMenu.fxml"));
                 Scene scene2 = new Scene(fxmlLoader2.load());
+                ThemeManager.applyTheme(scene2);
                 stage.setResizable(false);
                 stage.setTitle("Admin Menu");
                 stage.setScene(scene2);
@@ -78,6 +81,7 @@ public class LoginView {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("loginMenu.fxml"));
         Scene scene1 = new Scene(fxmlLoader.load());
+        ThemeManager.applyTheme(scene1);
         LoginView loginView = fxmlLoader.getController();
         stage.setResizable(false);
         stage.setTitle("Main Menu");

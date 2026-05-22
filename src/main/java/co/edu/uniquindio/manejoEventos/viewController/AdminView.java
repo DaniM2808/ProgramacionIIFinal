@@ -1,6 +1,7 @@
 package co.edu.uniquindio.manejoEventos.viewController;
 
 import co.edu.uniquindio.manejoEventos.Application;
+import co.edu.uniquindio.manejoEventos.ThemeManager;
 import co.edu.uniquindio.manejoEventos.controller.AdminController;
 import co.edu.uniquindio.manejoEventos.controller.ChairController;
 import co.edu.uniquindio.manejoEventos.controller.PurchaseController;
@@ -293,7 +294,9 @@ public class AdminView {
                     Stage stage = new Stage();
                     stage.setResizable(false);
                     stage.setTitle("Event Modify");
-                    stage.setScene(new Scene(root));
+                    Scene scene = new Scene(root);
+                    ThemeManager.applyTheme(scene);
+                    stage.setScene(scene);
                     stage.showAndWait();
 
                     observableEvents.setAll(eventManager.getEventList());
@@ -394,7 +397,9 @@ public class AdminView {
                     Stage stage = new Stage();
                     stage.setResizable(false);
                     stage.setTitle("Place Modify");
-                    stage.setScene(new Scene(root));
+                    Scene scene = new Scene(root);
+                    ThemeManager.applyTheme(scene);
+                    stage.setScene(scene);
                     stage.showAndWait();
 
                     observablePlaces.setAll(eventManager.getPlaceList());
@@ -491,7 +496,9 @@ public class AdminView {
                     Stage stage = new Stage();
                     stage.setResizable(false);
                     stage.setTitle("Zone Modify");
-                    stage.setScene(new Scene(root));
+                    Scene scene = new Scene(root);
+                    ThemeManager.applyTheme(scene);
+                    stage.setScene(scene);
                     stage.showAndWait();
 
                     observablePlaces.setAll(eventManager.getPlaceList());
@@ -607,7 +614,9 @@ public class AdminView {
                     Stage stage = new Stage();
                     stage.setResizable(false);
                     stage.setTitle("Zone Modify");
-                    stage.setScene(new Scene(root));
+                    Scene scene = new Scene(root);
+                    ThemeManager.applyTheme(scene);
+                    stage.setScene(scene);
                     stage.showAndWait();
 
                     observableChairs.setAll(currentZone.getChairList());
@@ -1199,6 +1208,7 @@ public class AdminView {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("mainMenu.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
+        ThemeManager.applyTheme(scene);
         stage.setResizable(false);
         stage.setTitle("Main Menu");
         stage.setScene(scene);

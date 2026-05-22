@@ -5,14 +5,37 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="loginPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.manejoEventos.viewController.LoginView">
+<AnchorPane fx:id="loginPane" prefHeight="400.0" prefWidth="600.0" styleClass="container-bg" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.manejoEventos.viewController.LoginView">
    <children>
-      <Label layoutX="216.0" layoutY="92.0" text="Email:" />
-      <Label layoutX="219.0" layoutY="191.0" text="Contra:" />
-      <TextField fx:id="usernameField" layoutX="219.0" layoutY="120.0" promptText="Email:" text="dan@email.com" />
-      <Button layoutX="269.0" layoutY="288.0" mnemonicParsing="false" onAction="#loginFX" text="Ingresar" />
-      <PasswordField fx:id="passwdField" layoutX="219.0" layoutY="237.0" promptText="Passwd:" text="WhenISeeIt" />
-      <Button layoutX="515.0" layoutY="362.0" mnemonicParsing="false" onAction="#registerAction" text="Register" />
+      <!-- Center card -->
+      <VBox alignment="CENTER" layoutX="120.0" layoutY="25.0" prefHeight="350.0" prefWidth="360.0" spacing="24.0" styleClass="card-pane">
+         <children>
+            <!-- Title -->
+            <VBox alignment="CENTER" spacing="4.0">
+               <children>
+                  <Label styleClass="label-headline" text="Gestion de Eventos" />
+                  <Label styleClass="label-title" text="Tiquetes y Reservaciones" />
+               </children>
+            </VBox>
+            
+            <!-- Inputs -->
+            <VBox alignment="CENTER_LEFT" spacing="12.0">
+               <children>
+                  <TextField fx:id="usernameField" prefWidth="280.0" promptText="Correo Electrónico" styleClass="text-field" text="dan@email.com" />
+                  <PasswordField fx:id="passwdField" prefWidth="280.0" promptText="Contraseña" styleClass="password-field" text="WhenISeeIt" />
+               </children>
+            </VBox>
+            
+            <!-- Actions -->
+            <VBox alignment="CENTER" prefWidth="280.0" spacing="10.0">
+               <children>
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loginFX" styleClass="button, button-filled" text="Ingresar" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#registerAction" styleClass="button, button-outlined" text="Crear Cuenta" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
