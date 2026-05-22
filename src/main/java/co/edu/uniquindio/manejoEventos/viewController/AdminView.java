@@ -134,7 +134,9 @@ public class AdminView {
 
     Stage currentWindow;
 
+    // Proxy usage here
     private AdminController adminController = new AdminController();
+
     private EventManager eventManager = EventManager.getInstance();
 
     private Place currentPlace;
