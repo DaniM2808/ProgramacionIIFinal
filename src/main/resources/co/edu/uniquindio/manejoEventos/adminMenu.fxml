@@ -17,31 +17,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.manejoEventos.viewController.AdminView">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="876.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.manejoEventos.viewController.AdminView">
   <tabs>
     <Tab text="Event Menu">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="524.0" prefWidth="876.0">
                <children>
-                  <TableView fx:id="eventMenu" editable="true" layoutX="186.0" layoutY="14.0" prefHeight="339.0" prefWidth="407.0">
+                  <TableView fx:id="eventMenu" editable="true" layoutX="437.0" layoutY="80.0" prefHeight="339.0" prefWidth="407.0">
                     <columns>
                       <TableColumn fx:id="eventID" prefWidth="122.0" resizable="false" sortable="false" text="Event ID" />
                       <TableColumn fx:id="eventName" prefWidth="158.0" resizable="false" sortable="false" text="Event Name" />
                         <TableColumn fx:id="eventDate" prefWidth="133.0" resizable="false" text="Event Date" />
                     </columns>
                   </TableView>
-                  <TextField fx:id="newEventID" layoutX="21.0" layoutY="9.0" promptText="ID" />
-                  <TextField fx:id="newEventName" layoutX="21.0" layoutY="44.0" promptText="Name" />
-                  <TextField fx:id="newEventDescription" layoutX="21.0" layoutY="77.0" promptText="Description" />
-                  <TextField fx:id="newEventCity" layoutX="21.0" layoutY="113.0" promptText="City" />
-                  <ComboBox fx:id="newEventPlace" layoutX="21.0" layoutY="145.0" maxHeight="25.0" maxWidth="150.0" prefHeight="25.0" prefWidth="150.0" promptText="Place" />
-                  <DatePicker fx:id="newEventDate" layoutX="7.0" layoutY="175.0" />
-                  <TextField fx:id="newEventTime" layoutX="20.0" layoutY="209.0" promptText="Date HH:mm (00:00)" />
-                  <ComboBox fx:id="newEventType" layoutX="21.0" layoutY="241.0" prefWidth="150.0" promptText="Event Type" />
-                  <Button fx:id="addEventButton" layoutX="31.0" layoutY="307.0" mnemonicParsing="false" text="Create" />
-                  <Button fx:id="searchEventButton" layoutX="93.0" layoutY="307.0" mnemonicParsing="false" text="ID Search" />
-                  <ComboBox fx:id="newEventPolicy" layoutX="21.0" layoutY="274.0" prefWidth="150.0" promptText="Event Policy" />
-                  <Button fx:id="backButton" layoutX="29.0" layoutY="340.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="131.0" text="Back" />
+                  <TextField fx:id="newEventID" layoutX="23.0" layoutY="44.0" promptText="ID" />
+                  <TextField fx:id="newEventName" layoutX="208.0" layoutY="45.0" promptText="Name" />
+                  <TextField fx:id="newEventDescription" layoutX="24.0" layoutY="114.0" promptText="Description" />
+                  <TextField fx:id="newEventCity" layoutX="208.0" layoutY="115.0" promptText="City" />
+                  <ComboBox fx:id="newEventPlace" layoutX="32.0" layoutY="270.0" maxHeight="25.0" maxWidth="150.0" prefHeight="25.0" prefWidth="150.0" promptText="Place" />
+                  <DatePicker fx:id="newEventDate" layoutX="113.0" layoutY="164.0" />
+                  <TextField fx:id="newEventTime" layoutX="125.0" layoutY="213.0" promptText="Date HH:mm (00:00)" />
+                  <ComboBox fx:id="newEventType" layoutX="215.0" layoutY="270.0" prefWidth="150.0" promptText="Event Type" />
+                  <Button fx:id="addEventButton" layoutX="217.0" layoutY="357.0" mnemonicParsing="false" text="Create" />
+                  <Button fx:id="searchEventButton" layoutX="292.0" layoutY="357.0" mnemonicParsing="false" text="ID Search" />
+                  <ComboBox fx:id="newEventPolicy" layoutX="30.0" layoutY="357.0" prefWidth="150.0" promptText="Event Policy" />
+                  <Button fx:id="backButton" layoutX="119.0" layoutY="507.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="131.0" text="Back" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -49,7 +49,7 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="placeMenu" editable="true" layoutX="186.0" layoutY="14.0" prefHeight="339.0" prefWidth="407.0">
+                  <TableView fx:id="placeMenu" editable="true" layoutX="264.0" layoutY="30.0" prefHeight="339.0" prefWidth="407.0">
                      <columns>
                         <TableColumn fx:id="placeID" prefWidth="122.0" resizable="false" sortable="false" text="Place ID" />
                         <TableColumn fx:id="placeName" prefWidth="158.0" resizable="false" sortable="false" text="Place Name" />
@@ -70,7 +70,7 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="zoneMenu" editable="true" layoutX="186.0" layoutY="14.0" prefHeight="339.0" prefWidth="407.0">
+                  <TableView fx:id="zoneMenu" editable="true" layoutX="245.0" layoutY="20.0" prefHeight="339.0" prefWidth="407.0">
                      <columns>
                         <TableColumn fx:id="zoneID" prefWidth="122.0" resizable="false" sortable="false" text="Zone ID" />
                         <TableColumn fx:id="zoneName" prefWidth="158.0" resizable="false" sortable="false" text="Zone Name" />
@@ -93,7 +93,7 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="chairMenu" editable="true" layoutX="186.0" layoutY="14.0" prefHeight="339.0" prefWidth="407.0">
+                  <TableView fx:id="chairMenu" editable="true" layoutX="251.0" layoutY="26.0" prefHeight="339.0" prefWidth="407.0">
                      <columns>
                         <TableColumn fx:id="chairID" prefWidth="122.0" resizable="false" sortable="false" text="Chair ID" />
                         <TableColumn fx:id="chairRow" prefWidth="158.0" resizable="false" sortable="false" text="Chair Row" />
@@ -116,7 +116,7 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="purchaseMenu" editable="true" layoutX="165.0" layoutY="14.0" prefHeight="339.0" prefWidth="428.0">
+                  <TableView fx:id="purchaseMenu" editable="true" layoutX="245.0" layoutY="38.0" prefHeight="339.0" prefWidth="428.0">
                      <columns>
                         <TableColumn fx:id="purchaseID" prefWidth="105.0" resizable="false" sortable="false" text="Purchase ID" />
                         <TableColumn fx:id="purchaseDate" prefWidth="142.0" resizable="false" sortable="false" text="Purchase Date" />

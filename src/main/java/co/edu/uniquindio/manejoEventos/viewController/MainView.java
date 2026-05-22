@@ -1,6 +1,7 @@
 package co.edu.uniquindio.manejoEventos.viewController;
 
 import co.edu.uniquindio.manejoEventos.Application;
+import co.edu.uniquindio.manejoEventos.ThemeManager;
 import co.edu.uniquindio.manejoEventos.controller.UserController;
 import co.edu.uniquindio.manejoEventos.model.Enums.ChairStatus;
 import co.edu.uniquindio.manejoEventos.model.Enums.EventStatus;
@@ -227,6 +228,7 @@ public class MainView implements Initializable {
             //
             Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(mainRoot);
+            ThemeManager.applyTheme(scene);
             mainStage.setScene(scene);
             mainStage.show();
         } catch (NullPointerException e) {

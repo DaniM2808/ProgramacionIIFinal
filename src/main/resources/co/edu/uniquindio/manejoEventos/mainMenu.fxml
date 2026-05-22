@@ -2,94 +2,199 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<TabPane side="LEFT" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.manejoEventos.viewController.MainView">
+<TabPane prefHeight="414.0" prefWidth="760.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.manejoEventos.viewController.MainView">
    <tabs>
-      <Tab closable="false" text="Main Menu">
+      <!-- TAB 1: EVENT FINDER -->
+      <Tab closable="false" text="Eventos">
          <content>
-            <AnchorPane fx:id="scenePane" prefHeight="414.0" prefWidth="726.0">
+            <AnchorPane fx:id="scenePane" prefHeight="414.0" prefWidth="660.0" styleClass="container-bg">
                <children>
-                  <TableView fx:id="eventTable" layoutX="62.0" layoutY="78.0" prefHeight="200.0" prefWidth="604.0">
-                    <columns>
-                      <TableColumn fx:id="nameColumn" prefWidth="104.0" text="Nombre" />
-                      <TableColumn fx:id="cityColumn" prefWidth="95.0" text="Ciudad" />
-                        <TableColumn fx:id="dateColumn" prefWidth="106.0" text="Fecha" />
-                        <TableColumn fx:id="placeColumn" prefWidth="104.0" text="Lugar" />
-                        <TableColumn fx:id="typeColumn" prefWidth="95.0" text="Tipo" />
-                        <TableColumn fx:id="statusColumn" prefWidth="99.0" text="Estado" />
-                    </columns>
-                  </TableView>
-                  <Text layoutX="205.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Encuentra el evento que necesitas aquí!" textAlignment="CENTER" wrappingWidth="316.54736328125" />
-                  <ChoiceBox fx:id="typeChoiceBox" layoutX="289.0" layoutY="310.0" prefWidth="150.0" />
-                  <ChoiceBox fx:id="statusChoiceBox" layoutX="516.0" layoutY="310.0" prefWidth="150.0" />
-                  <TextField fx:id="cityField" layoutX="71.0" layoutY="310.0" promptText="Pon tu ciudad aqui!" />
-                  <Button layoutX="448.0" layoutY="360.0" mnemonicParsing="false" onAction="#fillUpFilteredEventList" text="Buscar" />
-                  <Text layoutX="71.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ciudad" />
-                  <Text layoutX="288.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo" />
-                  <Text layoutX="522.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado" />
-                  <Button layoutX="223.0" layoutY="360.0" mnemonicParsing="false" onAction="#buyEventAction" text="Comprar" />
-                  <Button layoutX="334.0" layoutY="360.0" mnemonicParsing="false" onAction="#checkEventDetailsAction" text="Detalles" />
+                  <VBox layoutX="20.0" layoutY="15.0" prefWidth="620.0" spacing="12.0">
+                     <children>
+                        <!-- Header -->
+                        <VBox spacing="2.0">
+                           <children>
+                              <Label styleClass="label-headline" text="Lista de Eventos" />
+                              <Label styleClass="label-subtitle" text="Encuentra y reserva tus eventos musicales favoritos en un solo clic" />
+                           </children>
+                        </VBox>
+                        
+                        <!-- Table -->
+                        <TableView fx:id="eventTable" prefHeight="170.0" prefWidth="620.0">
+                           <columns>
+                              <TableColumn fx:id="nameColumn" prefWidth="120.0" text="Nombre" />
+                              <TableColumn fx:id="cityColumn" prefWidth="90.0" text="Ciudad" />
+                              <TableColumn fx:id="dateColumn" prefWidth="110.0" text="Fecha" />
+                              <TableColumn fx:id="placeColumn" prefWidth="110.0" text="Lugar" />
+                              <TableColumn fx:id="typeColumn" prefWidth="90.0" text="Tipo" />
+                              <TableColumn fx:id="statusColumn" prefWidth="90.0" text="Estado" />
+                           </columns>
+                        </TableView>
+                        
+                        <!-- Filter Pane -->
+                        <HBox alignment="CENTER" spacing="15.0" style="-fx-padding: 10px 15px;" styleClass="card-pane">
+                           <children>
+                              <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label style="-fx-font-weight: bold; -fx-font-size: 11px;" text="Ciudad" />
+                                    <TextField fx:id="cityField" promptText="Ciudad (ej. Tokyo)" styleClass="text-field" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <Label style="-fx-font-weight: bold; -fx-font-size: 11px;" text="Tipo" />
+                                    <ChoiceBox fx:id="typeChoiceBox" prefWidth="130.0" styleClass="choice-box" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="4.0">
+                                 <children>
+                                    <Label style="-fx-font-weight: bold; -fx-font-size: 11px;" text="Estado" />
+                                    <ChoiceBox fx:id="statusChoiceBox" prefWidth="130.0" styleClass="choice-box" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        
+                        <!-- Actions -->
+                        <HBox alignment="CENTER_RIGHT" spacing="12.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#buyEventAction" styleClass="button, button-filled" text="Comprar Entradas" />
+                              <Button mnemonicParsing="false" onAction="#checkEventDetailsAction" styleClass="button, button-tonal" text="Ver Detalles" />
+                              <Button mnemonicParsing="false" onAction="#fillUpFilteredEventList" styleClass="button, button-outlined" text="Aplicar Filtros" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
          </content>
       </Tab>
+      
+      <!-- TAB 2: SHOPPING CART -->
       <Tab closable="false" onSelectionChanged="#refreshCartAction" text="Carrito">
-          <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                      <TableView fx:id="cartTable" layoutX="62.0" layoutY="78.0" prefHeight="200.0" prefWidth="604.0">
-                          <columns>
-                              <TableColumn fx:id="cartEventColumn" prefWidth="150.0" text="Evento" />
-                              <TableColumn fx:id="cartTotalColumn" prefWidth="100.0" text="Total" />
-                              <TableColumn fx:id="cartPaymentColumn" prefWidth="150.0" text="Método Pago" />
-                              <TableColumn fx:id="cartTicketsColumn" prefWidth="100.0" text="Entradas" />
-                          </columns>
-                      </TableView>
-                      <Text layoutX="205.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tu Carrito de Compras" textAlignment="CENTER" wrappingWidth="316.54736328125" />
-                      <Button layoutX="100.0" layoutY="310.0" mnemonicParsing="false" onAction="#processCartAction" text="Procesar Compra" />
-                      <Button layoutX="330.0" layoutY="310.0" mnemonicParsing="false" onAction="#editCartAction" text="Modificar" />
-                      <Button layoutX="500.0" layoutY="310.0" mnemonicParsing="false" onAction="#deleteCartAction" text="Eliminar del Carrito" />
-                  </children>
-              </AnchorPane>
-          </content>
-      </Tab>
-      <Tab closable="false" onSelectionChanged="#refreshUserTabAction" text="User">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+         <content>
+            <AnchorPane prefHeight="414.0" prefWidth="660.0" styleClass="container-bg">
                <children>
-                  <Button layoutX="25.0" layoutY="362.0" mnemonicParsing="false" onAction="#logoutAction" text="logout" />
-                  <TextField fx:id="nameField" layoutX="535.0" layoutY="49.0" />
-                  <TextField fx:id="emailField" layoutX="535.0" layoutY="126.0" />
-                  <TextField fx:id="phoneField" layoutX="535.0" layoutY="194.0" />
-                  <Text layoutX="403.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre Completo" />
-                  <Text layoutX="439.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-                  <Text layoutX="429.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telefono" />
-                  <Text fx:id="userDataText" layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Data:" wrappingWidth="406.21630859375" />
-                  <TextField fx:id="passwordField" layoutX="535.0" layoutY="267.0" />
-                  <Text layoutX="421.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña:" />
-                  <Button layoutX="587.0" layoutY="349.0" mnemonicParsing="false" onAction="#updateUserAction" text="Aplicar" />
-                  <TableView fx:id="historyTable" layoutX="14.0" layoutY="131.0" prefHeight="200.0" prefWidth="376.0">
-                    <columns>
-                      <TableColumn fx:id="historyIdPurchaseColumn" prefWidth="75.0" text="Id Compra" />
-                        <TableColumn fx:id="historyDateColumn" prefWidth="75.0" text="Fecha" />
-                        <TableColumn fx:id="historyTotalColumn" prefWidth="75.0" text="Total" />
-                        <TableColumn fx:id="historyPaymentColumn" prefWidth="75.0" text="Pago" />
-                      <TableColumn fx:id="historyTicketsColumn" prefWidth="75.0" text="Nro Tickets" />
-                    </columns>
-                  </TableView>
-                  <Text layoutX="14.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Historial de compras:" />
-                  <Text layoutX="549.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Editar datos del Usuario:" />
-                  <Button layoutX="166.0" layoutY="362.0" mnemonicParsing="false" onAction="#generateAction" text="Generar Recibo" />
+                  <VBox layoutX="20.0" layoutY="15.0" prefWidth="620.0" spacing="16.0">
+                     <children>
+                        <!-- Header -->
+                        <VBox spacing="2.0">
+                           <children>
+                              <Label styleClass="label-headline" text="Tu Carrito de Compras" />
+                              <Label styleClass="label-subtitle" text="Administra tus reservas activas antes de finalizar el pago seguro" />
+                           </children>
+                        </VBox>
+                        
+                        <!-- Cart Table -->
+                        <TableView fx:id="cartTable" prefHeight="220.0" prefWidth="620.0">
+                           <columns>
+                              <TableColumn fx:id="cartEventColumn" prefWidth="180.0" text="Evento" />
+                              <TableColumn fx:id="cartTotalColumn" prefWidth="120.0" text="Total" />
+                              <TableColumn fx:id="cartPaymentColumn" prefWidth="180.0" text="Método de Pago" />
+                              <TableColumn fx:id="cartTicketsColumn" prefWidth="130.0" text="Nro. Entradas" />
+                           </columns>
+                        </TableView>
+                        
+                        <!-- Cart Actions -->
+                        <HBox alignment="CENTER_RIGHT" spacing="12.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#processCartAction" styleClass="button, button-filled" text="Procesar Pago" />
+                              <Button mnemonicParsing="false" onAction="#editCartAction" styleClass="button, button-tonal" text="Modificar Reserva" />
+                              <Button mnemonicParsing="false" onAction="#deleteCartAction" style="-fx-text-fill: -fx-md-error; -fx-border-color: -fx-md-error;" styleClass="button, button-outlined" text="Eliminar Reserva" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
-        </content>
+         </content>
+      </Tab>
+      
+      <!-- TAB 3: USER PROFILE -->
+      <Tab closable="false" onSelectionChanged="#refreshUserTabAction" text="Usuario">
+         <content>
+            <AnchorPane prefHeight="414.0" prefWidth="660.0" styleClass="container-bg">
+               <children>
+                   <!-- Left Side Column: Profile Overview Card -->
+                   <VBox layoutX="20.0" layoutY="20.0" prefHeight="374.0" prefWidth="230.0" spacing="16.0">
+                      <children>
+                         <VBox alignment="CENTER" prefHeight="260.0" spacing="12.0" styleClass="profile-card">
+                            <children>
+                               <Label styleClass="profile-avatar" text="👤" />
+                               <Label styleClass="profile-title" text="Mi Perfil" />
+                               <Text fx:id="userDataText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="profile-detail" text="Cargando..." textAlignment="CENTER" wrappingWidth="190.0" />
+                            </children>
+                         </VBox>
+                         <VBox alignment="BOTTOM_CENTER" spacing="10.0" VBox.vgrow="ALWAYS">
+                            <children>
+                               <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#generateAction" styleClass="button, button-tonal" text="Generar Recibo PDF" />
+                               <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logoutAction" style="-fx-text-fill: -fx-md-error; -fx-border-color: -fx-md-error;" styleClass="button, button-outlined" text="Cerrar Sesión" />
+                            </children>
+                         </VBox>
+                      </children>
+                   </VBox>
+                  
+                  <!-- Right Side Column: User Editor and Purchase History -->
+                  <VBox layoutX="270.0" layoutY="20.0" prefHeight="374.0" prefWidth="370.0" spacing="16.0">
+                     <children>
+                        <!-- User Editor Panel -->
+                        <VBox spacing="10.0" style="-fx-padding: 15px;" styleClass="card-pane">
+                           <children>
+                              <Label style="-fx-font-size: 15px;" styleClass="label-title" text="Editar Información" />
+                              
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <TextField fx:id="nameField" prefWidth="165.0" promptText="Nombre Completo" styleClass="text-field" />
+                                    <TextField fx:id="emailField" prefWidth="165.0" promptText="Correo Electrónico" styleClass="text-field" />
+                                 </children>
+                              </HBox>
+                              
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <TextField fx:id="phoneField" prefWidth="165.0" promptText="Teléfono" styleClass="text-field" />
+                                    <TextField fx:id="passwordField" prefWidth="165.0" promptText="Nueva Contraseña" styleClass="text-field" />
+                                 </children>
+                              </HBox>
+                              
+                              <HBox alignment="CENTER_RIGHT">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#updateUserAction" style="-fx-padding: 6px 16px; -fx-font-size: 12px;" styleClass="button, button-filled" text="Guardar Cambios" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        
+                        <!-- Purchase History Panel -->
+                        <VBox spacing="6.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label style="-fx-font-size: 15px;" styleClass="label-title" text="Historial de Compras" />
+                              <TableView fx:id="historyTable" prefHeight="150.0" prefWidth="370.0">
+                                 <columns>
+                                    <TableColumn fx:id="historyIdPurchaseColumn" prefWidth="80.0" text="Id Compra" />
+                                    <TableColumn fx:id="historyDateColumn" prefWidth="80.0" text="Fecha" />
+                                    <TableColumn fx:id="historyTotalColumn" prefWidth="70.0" text="Total" />
+                                    <TableColumn fx:id="historyPaymentColumn" prefWidth="70.0" text="Pago" />
+                                    <TableColumn fx:id="historyTicketsColumn" prefWidth="65.0" text="Tickets" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </content>
       </Tab>
    </tabs>
 </TabPane>
