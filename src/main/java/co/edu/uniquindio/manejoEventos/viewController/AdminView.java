@@ -21,11 +21,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -42,6 +45,8 @@ import static co.edu.uniquindio.manejoEventos.viewController.MainView.switchMenu
 
 public class AdminView {
 
+    @FXML
+    private Text userDataText;
     @FXML
     private TextField newEventID, newEventName, newEventDescription, newEventCity, newEventTime,
                       newPlaceID, newPlaceName, newPlaceAddress,
@@ -120,15 +125,15 @@ public class AdminView {
 
 
     @FXML
-    private javafx.scene.chart.LineChart<String, Number> ventasPorPeriodoChart;
+    private LineChart<String, Number> ventasPorPeriodoChart;
     @FXML
-    private javafx.scene.chart.BarChart<String, Number> ocupacionPorZonaChart;
+    private BarChart<String, Number> ocupacionPorZonaChart;
     @FXML
-    private javafx.scene.chart.PieChart ingresosServiciosChart;
+    private PieChart ingresosServiciosChart;
     @FXML
-    private javafx.scene.chart.PieChart tasaCancelacionChart;
+    private PieChart tasaCancelacionChart;
     @FXML
-    private javafx.scene.chart.BarChart<String, Number> topEventosChart;
+    private BarChart<String, Number> topEventosChart;
     @FXML
     private AnchorPane scenePane;
 
@@ -167,7 +172,11 @@ public class AdminView {
 
             currentPlace = chairThePlace.getValue();
             if(currentPlace!=null){
-                chairThePlace.setItems(observablePlaces);
+                //
+                observableZones.setAll(currentPlace.getZoneList());
+             //   chairThePlace.setItems(observablePlaces);
+                chairTheZone.setItems(observableZones);
+                //
                 System.out.print("Prueba taller final");
             }
 
@@ -760,6 +769,8 @@ public class AdminView {
         });
 
         loadReportData();
+        //
+        userDataText.setText(EventManager.getInstance().getCurrentUser().toString());
     }
 
     private void loadReportData() {
