@@ -166,11 +166,12 @@ public class Application extends javafx.application.Application {
 
         AdminController adminController = new AdminController();
         Admin admin = new Admin("AdminUser","admin@gmail.com","6767","admin");
-        Proxy proxy = new Proxy(adminController,admin);
+        AdminProxy adminProxy = new AdminProxy(adminController,admin);
 
-    //    Purchase purchase = new Purchase(user, 100, "132",null, PaymentType.APPLE);
+        //    Purchase purchase = new Purchase(user, 100, "132",null, PaymentType.APPLE);
       //  user.addPurchase(purchase);
-        System.out.println(EventManager.getInstance().getEventList().size());
+      //  System.out.println(EventManager.getInstance().getEventList().size());
+
         EventManager.getInstance().addUser(admin);
         user.generateReceipt();
     }
