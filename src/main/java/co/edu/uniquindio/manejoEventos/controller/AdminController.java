@@ -168,7 +168,7 @@ public class AdminController implements ServiceProxy {
                 count++;
             }
         }
-        return "En el periodo entre el " + initial.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)) + " y el " + end.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)) + " se han realizado un total de " + count + " compras";
+        return "Se realizaron "+ count +" compras entre el " + initial.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)) + " y el " + end.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
     }
     private String cancellationRate(LocalDateTime initial, LocalDateTime end) {
         int totalTickets = 0, cancelledTickets = 0;
