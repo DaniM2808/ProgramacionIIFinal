@@ -9,6 +9,7 @@ import co.edu.uniquindio.manejoEventos.controller.ZoneController;
 import co.edu.uniquindio.manejoEventos.model.*;
 import co.edu.uniquindio.manejoEventos.model.Enums.*;
 import co.edu.uniquindio.manejoEventos.model.Interfaces.Composite;
+import co.edu.uniquindio.manejoEventos.model.Interfaces.ServiceProxy;
 import co.edu.uniquindio.manejoEventos.viewController.modifyView.ChairModify;
 import co.edu.uniquindio.manejoEventos.viewController.modifyView.EventModify;
 import co.edu.uniquindio.manejoEventos.viewController.modifyView.PlaceModify;
@@ -140,8 +141,8 @@ public class AdminView {
     Stage currentWindow;
 
     // Proxy usage here
-    private AdminController adminController = new AdminController();
-
+    private ServiceProxy controller = new AdminController();
+    private ServiceProxy adminController = new Proxy((AdminController) controller,EventManager.getInstance().getCurrentUser());
     private EventManager eventManager = EventManager.getInstance();
 
     private Place currentPlace;

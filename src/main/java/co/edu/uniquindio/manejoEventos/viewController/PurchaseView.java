@@ -268,7 +268,7 @@ public class PurchaseView implements Initializable {
 
 
         ArrayList<Ticket> tickets = new ArrayList<>();
-        Purchase purchase = editPurchase != null ? editPurchase : new Purchase(currentUser, total, UUID.randomUUID().toString(), tickets, paymentTypeChoiceBox.getValue());
+        Purchase purchase = editPurchase != null ? editPurchase : new Purchase(currentUser, total, tickets, paymentTypeChoiceBox.getValue());
 
         purchase.setTotal(total);
         purchase.setPaymentType(paymentTypeChoiceBox.getValue());

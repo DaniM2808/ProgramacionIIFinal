@@ -21,12 +21,12 @@ public class Purchase implements PurchaseClone, PurchaseComponent {
     private PurchaseStatus purchaseStatus;
     private ArrayList<String> additionalServices;
 
-    public Purchase(User theUser, double total, String idPurchase, ArrayList<Ticket> ticketList, PaymentType paymentType) {
+    public Purchase(User theUser, double total, ArrayList<Ticket> ticketList, PaymentType paymentType) {
         this.theUser = theUser;
         this.ticketList = ticketList;
         this.total = total;
         this.dateCreated = LocalDateTime.now();
-        this.idPurchase = idPurchase;
+        this.idPurchase = generateId();
         this.paymentType = paymentType;
         this.purchaseStatus = PurchaseStatus.CREATED;
         this.additionalServices = new ArrayList<>();
@@ -34,13 +34,28 @@ public class Purchase implements PurchaseClone, PurchaseComponent {
 
     @Override
     public Purchase cloneObject() {
-        return new Purchase(this.theUser, this.total, this.idPurchase, this.ticketList, this.paymentType);
+        return new Purchase(this.theUser, this.total, this.ticketList, this.paymentType);
     }
 
     @Override
     public String getDescription() {
         return "Compra Base";
     }
+
+    private String generateId(){
+        int n = EventManager.getInstance().getPurchaseList().size();
+        System.out.println(n);
+        String id = "PUR-";
+        if(n<10){
+            id += "00" + n;
+        } else if(n<100){
+            id += "0" + n;
+        } else {
+            id += n;
+        }
+        return id;
+    }
+
 
     public PurchaseMemento saveToMemento() {
         return new PurchaseMemento(total, new ArrayList<>(ticketList), paymentType, new ArrayList<>(additionalServices));
