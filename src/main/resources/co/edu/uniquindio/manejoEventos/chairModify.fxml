@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.manejoEventos.viewController.modifyView.ChairModify">
+<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.manejoEventos.viewController.modifyView.ChairModify">
    <Text fx:id="chairRow" layoutX="26.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Row: " wrappingWidth="182.13671875">
       <font>
          <Font size="15.0" />
@@ -32,9 +32,9 @@
          <Font size="15.0" />
       </font>
    </Text>
-   <TextField fx:id="newRow" layoutX="231.0" layoutY="74.0" promptText="Row" />
-   <TextField fx:id="newNumber" layoutX="231.0" layoutY="111.0" promptText="Number" />
-   <Button fx:id="modifyButton" layoutX="280.0" layoutY="187.0" mnemonicParsing="false" text="Modify" />
+   <TextField fx:id="newRow" layoutX="231.0" layoutY="88.0" promptText="Row" />
+   <TextField fx:id="newNumber" layoutX="231.0" layoutY="167.0" promptText="Number" />
+   <Button fx:id="modifyButton" layoutX="273.0" layoutY="333.0" mnemonicParsing="false" text="Modify" />
    <Text fx:id="chairZone" layoutX="26.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zone:" wrappingWidth="182.13671875">
       <font>
          <Font size="15.0" />
@@ -50,5 +50,5 @@
          <Font size="20.0" />
       </font>
    </Label>
-   <ComboBox fx:id="newChairStatus" layoutX="232.0" layoutY="147.0" prefWidth="150.0" promptText="Chair Status" />
+   <ComboBox fx:id="newChairStatus" layoutX="236.0" layoutY="247.0" prefWidth="150.0" promptText="Chair Status" styleClass="choice-box" />
 </AnchorPane>

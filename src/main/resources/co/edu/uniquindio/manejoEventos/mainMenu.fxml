@@ -111,6 +111,7 @@
                            <children>
                               <Button mnemonicParsing="false" onAction="#processCartAction" styleClass="button, button-filled" text="Procesar Pago" />
                               <Button mnemonicParsing="false" onAction="#editCartAction" styleClass="button, button-tonal" text="Modificar Reserva" />
+                              <Button mnemonicParsing="false" onAction="#cloneCartAction" styleClass="button, button-tonal" text="Clonar Reserva" />
                               <Button mnemonicParsing="false" onAction="#deleteCartAction" style="-fx-text-fill: -fx-md-error; -fx-border-color: -fx-md-error;" styleClass="button, button-outlined" text="Eliminar Reserva" />
                            </children>
                         </HBox>

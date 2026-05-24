@@ -3,6 +3,7 @@ package co.edu.uniquindio.manejoEventos.model;
 import co.edu.uniquindio.manejoEventos.model.Enums.EventStatus;
 import co.edu.uniquindio.manejoEventos.model.Enums.EventType;
 import co.edu.uniquindio.manejoEventos.model.Interfaces.Observer;
+import co.edu.uniquindio.manejoEventos.viewController.MainView;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -119,6 +120,9 @@ public class EventManager {
     public void notifyObservers(String message){
         for(Observer o : userList){
             o.update(message);
+        }
+        if (currentUser != null) {
+            MainView.showNotification(message);
         }
     }
 }

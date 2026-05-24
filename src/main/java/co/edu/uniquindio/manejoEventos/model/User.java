@@ -31,7 +31,7 @@ public class User implements Observer {
     private ArrayList<Purchase> cartList;
     private boolean rootAccess = false;
 
-    //All these variables are used to encrypt the password, thx.
+    // All these variables are used to encrypt the password, thx.
     public static final KeyGenerator keygenerator;
     public static final Cipher desCipher;
     static {
@@ -42,7 +42,11 @@ public class User implements Observer {
             throw new RuntimeException(e);
         }
     }
-    public void addPurchase(Purchase purchase){purchaseList.add(purchase);}
+
+    public void addPurchase(Purchase purchase) {
+        purchaseList.add(purchase);
+    }
+
     public static final SecretKey myDesKey = keygenerator.generateKey();
 
     public User(String fullName, String email, String phoneNumber, String password) {
@@ -84,7 +88,8 @@ public class User implements Observer {
     }
 
     // Source - https://stackoverflow.com/a/20536597
-    // Posted by Suresh Atta, modified by community. See post 'Timeline' for change history
+    // Posted by Suresh Atta, modified by community. See post 'Timeline' for change
+    // history
     // Retrieved 2026-05-07, License - CC BY-SA 3.0
     protected String getSaltString() {
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -100,11 +105,12 @@ public class User implements Observer {
 
     /**
      * Method that encrypts a password
+     * 
      * @param password to encrypt
      * @return the encrypted password
      */
-    private static String encrypt(String password){
-        try{
+    private static String encrypt(String password) {
+        try {
             byte[] passwordBytes = password.getBytes(StandardCharsets.UTF_8);
             desCipher.init(Cipher.ENCRYPT_MODE, myDesKey);
             byte[] textEncrypted = desCipher.doFinal(passwordBytes);
@@ -115,39 +121,44 @@ public class User implements Observer {
         }
         return password;
     }
+
     /**
      * Method that compares a password with the encrypted one
+     * 
      * @param password to compare
      * @return the comparison
      */
-    public boolean comparePasswords(String password){
+    public boolean comparePasswords(String password) {
         return encrypt(password).equals(this.password);
     }
 
-
     /**
      * Method that updates the password of the user
+     * 
      * @param password the new password of the user
      */
-    public void updatePasswd(String password){
+    public void updatePasswd(String password) {
         setPassword(password);
     }
 
     @Override
     public String toString() {
         return "ID: " + id + "\n" +
-               "Nombre: " + fullName + "\n" +
-               "Correo: " + email + "\n" +
-               "Celular: " + phoneNumber;
+                "Nombre: " + fullName + "\n" +
+                "Correo: " + email + "\n" +
+                "Celular: " + phoneNumber;
     }
 
     @Override
     public String update(String message) {
         System.out.println(fullName + " recibio una nueva notificacion: " + message);
+        if (EventManager.getInstance().getCurrentUser() != null && EventManager.getInstance().getCurrentUser().getId().equals(this.id)) {
+            co.edu.uniquindio.manejoEventos.viewController.MainView.showNotification(message);
+        }
         return message;
     }
 
-    public void generateReceipt(){
+    public void generateReceipt() {
         try {
             PDDocument document = new PDDocument();
             PDPage page = new PDPage(PDRectangle.A4);
@@ -163,21 +174,22 @@ public class User implements Observer {
             content.newLineAtOffset(0, -10);
             content.showText("_______________________________");
             content.newLineAtOffset(0, -14);
-            for(Purchase purchase : purchaseList){
+            for (Purchase purchase : purchaseList) {
                 content.showText("Compra N°: " + purchase.getIdPurchase());
                 content.newLineAtOffset(0, -14);
-                content.showText("Creada el: " + purchase.getDateCreated().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
+                content.showText("Creada el: "
+                        + purchase.getDateCreated().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
                 content.newLineAtOffset(0, -14);
                 content.showText("Se adquirieron los siguientes tiquetes:");
                 content.newLineAtOffset(0, -20);
-                for(Ticket t : purchase.getTicketList()){
+                for (Ticket t : purchase.getTicketList()) {
                     content.showText("-Ticket N°: " + t.getIdTicket());
                     content.newLineAtOffset(0, -14);
                     content.showText("Para el evento de " + t.getTheEvent().getName());
                     content.newLineAtOffset(0, -14);
                     content.showText("En la lugar ");
                     content.showText(t.getTheEvent().getThePlace().getName());
-                    if(t.getTheChair() != null){
+                    if (t.getTheChair() != null) {
                         content.showText(" con la silla N°: ");
                         content.showText(t.getTheChair().getIdChair());
                     }
