@@ -4,7 +4,7 @@ import co.edu.uniquindio.manejoEventos.model.EventManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.text.Text;
+import javafx.scene.control.Label;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,13 +13,13 @@ import static co.edu.uniquindio.manejoEventos.viewController.MainView.switchMenu
 
 public class EventDetailsView implements Initializable {
     @FXML
-    private Text eventNameText;
+    private Label eventNameText;
     @FXML
-    private Text descEventText;
+    private Label descEventText;
     @FXML
-    private Text placeText;
+    private Label placeText;
     @FXML
-    private Text eventPricesText;
+    private Label eventPricesText;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
