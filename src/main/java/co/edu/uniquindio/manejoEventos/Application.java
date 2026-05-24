@@ -120,6 +120,7 @@ public class Application extends javafx.application.Application {
         ArrayList<Ticket> list2 = new ArrayList<>(); list2.add(t2);
 
         // Create mock Purchases
+
         Purchase p1 = new Purchase(user, 300, list1, PaymentType.CARD);
         p1.getAdditionalServices().add("Preferencial");
         p1.getAdditionalServices().add("Catering");
@@ -130,11 +131,28 @@ public class Application extends javafx.application.Application {
         p2.setDateCreated(LocalDateTime.now().minusMonths(1));
         EventManager.getInstance().addPurchase(p2);
         user.addPurchase(p2);
+        /*
+        Purchase p1 = new Purchase(user, 300, list1, PaymentType.CARD);
+        p1.getAdditionalServices().add("Preferencial");
+        p1.getAdditionalServices().add("Catering");
+
+         */
+
+        /*
+        Purchase p2 = new Purchase(user, 150, list2, PaymentType.PAYPAL);
+        EventManager.getInstance().addPurchase(p1);
+        user.addPurchase(p1);
+        p2.getAdditionalServices().add("Merchandising");
+        p2.setDateCreated(LocalDateTime.now().minusMonths(1));
+        //EventManager.getInstance().addPurchase(p2);
+        //user.addPurchase(p2);
+
+         */
 
 
 
         // Add some more to make charts look nice
-        for(int i=0; i<50; i++){
+        for(int i=0; i<4; i++){
              ArrayList<Ticket> tl = new ArrayList<>();
              Ticket ticket = Ticket.builder().idTicket("TX"+i).finalCost(100).theEvent(event3).theZone(zone1).ticketStatus(TicketStatus.ACTIVE).build();
              tl.add(ticket);
