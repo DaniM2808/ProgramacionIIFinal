@@ -1,6 +1,6 @@
 package co.edu.uniquindio.manejoEventos.model;
 
-import co.edu.uniquindio.manejoEventos.model.Interfaces.Composite;
+import co.edu.uniquindio.manejoEventos.model.Interfaces.ZoneComposite;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 @Getter
 @Setter
-public class Place implements Composite {
+public class Place implements ZoneComposite {
     private String idPlace, name, address;
 
     private ArrayList<Event> eventList;
-    private ArrayList<Composite> zoneList;
+    private ArrayList<ZoneComposite> zoneList;
 
     public Place(String idPlace, String name, String address) {
         this.idPlace = idPlace;
@@ -34,7 +34,7 @@ public class Place implements Composite {
         }
     }
 
-    public void addZone(Composite zone){
+    public void addZone(ZoneComposite zone){
         zoneList.add(zone);
     }
     public void removeZone(Zone zone){
@@ -49,7 +49,7 @@ public class Place implements Composite {
     @Override
     public ArrayList<Chair> getAvailableChairs() {
         ArrayList<Chair> c = new ArrayList<>();
-        for(Composite zone : zoneList){
+        for(ZoneComposite zone : zoneList){
             c.addAll(zone.getAvailableChairs());
         }
         return c;

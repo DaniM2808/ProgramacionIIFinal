@@ -8,7 +8,7 @@ import co.edu.uniquindio.manejoEventos.controller.PurchaseController;
 import co.edu.uniquindio.manejoEventos.controller.ZoneController;
 import co.edu.uniquindio.manejoEventos.model.*;
 import co.edu.uniquindio.manejoEventos.model.Enums.*;
-import co.edu.uniquindio.manejoEventos.model.Interfaces.Composite;
+import co.edu.uniquindio.manejoEventos.model.Interfaces.ZoneComposite;
 import co.edu.uniquindio.manejoEventos.model.Interfaces.ServiceProxy;
 import co.edu.uniquindio.manejoEventos.viewController.modifyView.ChairModify;
 import co.edu.uniquindio.manejoEventos.viewController.modifyView.EventModify;
@@ -60,7 +60,7 @@ public class AdminView {
     private ComboBox<Place> newEventPlace, zoneThePlace, chairThePlace;
 
     @FXML
-    private ComboBox<Composite> chairTheZone;
+    private ComboBox<ZoneComposite> chairTheZone;
 
     @FXML
     private ComboBox<EventType>  newEventType;
@@ -142,7 +142,7 @@ public class AdminView {
 
     // Proxy usage here
     private ServiceProxy controller = new AdminController();
-    private ServiceProxy adminController = new Proxy((AdminController) controller,EventManager.getInstance().getCurrentUser());
+    private ServiceProxy adminController = new AdminProxy((AdminController) controller,EventManager.getInstance().getCurrentUser());
     private EventManager eventManager = EventManager.getInstance();
 
     private Place currentPlace;
@@ -152,7 +152,7 @@ public class AdminView {
     ObservableList<User> observableUsers = FXCollections.observableArrayList(eventManager.getUserList());
     ObservableList<Event> observableEvents = FXCollections.observableArrayList(eventManager.getEventList());
     ObservableList<Place> observablePlaces = FXCollections.observableArrayList(eventManager.getPlaceList());
-    ObservableList<Composite> observableZones = FXCollections.observableArrayList();
+    ObservableList<ZoneComposite> observableZones = FXCollections.observableArrayList();
     ObservableList<Chair> observableChairs = FXCollections.observableArrayList();
     ObservableList<Purchase> observablePurchases = FXCollections.observableArrayList();
 
@@ -184,7 +184,7 @@ public class AdminView {
         });
 
         chairTheZone.setOnAction(e -> {
-            Composite selected =
+            ZoneComposite selected =
                     chairTheZone.getValue();
 
             if (selected instanceof Zone) {
@@ -1059,7 +1059,7 @@ public class AdminView {
         if(okButton.isPresent() && okButton.get() == ButtonType.OK) {
             boolean duplicated = false;
 
-            for (Composite c : currentPlace.getZoneList()) {
+            for (ZoneComposite c : currentPlace.getZoneList()) {
                 if (c instanceof Zone) {
                     Zone zone = (Zone) c;
                     if (zone.getIdZone().equals(newZone.getIdZone())) {
@@ -1411,7 +1411,7 @@ public class AdminView {
         }
 
         boolean found = false;
-        for (Composite c : currentPlace.getZoneList()) {
+        for (ZoneComposite c : currentPlace.getZoneList()) {
                 if(c instanceof Zone) {
 
                     Zone zone1 =  (Zone) c;

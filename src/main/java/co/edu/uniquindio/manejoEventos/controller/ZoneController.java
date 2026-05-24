@@ -1,6 +1,6 @@
 package co.edu.uniquindio.manejoEventos.controller;
 
-import co.edu.uniquindio.manejoEventos.model.Interfaces.Composite;
+import co.edu.uniquindio.manejoEventos.model.Interfaces.ZoneComposite;
 import co.edu.uniquindio.manejoEventos.model.Place;
 import co.edu.uniquindio.manejoEventos.model.Zone;
 
@@ -13,7 +13,7 @@ public class ZoneController {
     }
 
     public static Zone searchZoneById(String id, Place place){
-        for(Composite z : place.getZoneList()){
+        for(ZoneComposite z : place.getZoneList()){
             Zone zone = (Zone) z;
             if(zone.getIdZone().equals(id)){
                 System.out.println("Zone: "+id+" found");
@@ -27,7 +27,7 @@ public class ZoneController {
     }
 
     public static void updateZone(Zone zoneUpdate, Place place){
-        for(Composite z : place.getZoneList()){
+        for(ZoneComposite z : place.getZoneList()){
             Zone zone = (Zone) z;
             if(zone.getIdZone().equals(zoneUpdate.getIdZone())){
                 /*if(zoneUpdate.getName() != null){zone.setName(zoneUpdate.getName());}
@@ -43,7 +43,7 @@ public class ZoneController {
     }
 
     public static void removeZone(Zone zone, Place place) {
-        for (Composite z : place.getZoneList()) {
+        for (ZoneComposite z : place.getZoneList()) {
             Zone zo = (Zone) z;
             if(zo.getIdZone().equals(zone.getIdZone())){
                 System.out.println("Successfully deleted");
@@ -56,7 +56,7 @@ public class ZoneController {
     }
     public static ArrayList<Zone> listZones(Place place){
         ArrayList<Zone> z = new ArrayList<>();
-        for(Composite c : place.getZoneList()){
+        for(ZoneComposite c : place.getZoneList()){
             Zone zo = (Zone) c;
             z.add(zo);
         }

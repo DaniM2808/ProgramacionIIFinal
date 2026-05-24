@@ -4,6 +4,6 @@ import co.edu.uniquindio.manejoEventos.model.Chair;
 
 import java.util.ArrayList;
 
-public interface Composite {
+public interface ZoneComposite {
     ArrayList<Chair> getAvailableChairs();
 }

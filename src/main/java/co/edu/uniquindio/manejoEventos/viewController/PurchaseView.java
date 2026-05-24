@@ -1,7 +1,7 @@
 package co.edu.uniquindio.manejoEventos.viewController;
 
 import co.edu.uniquindio.manejoEventos.model.*;
-import co.edu.uniquindio.manejoEventos.model.Interfaces.Composite;
+import co.edu.uniquindio.manejoEventos.model.Interfaces.ZoneComposite;
 import co.edu.uniquindio.manejoEventos.model.Interfaces.PurchaseComponent;
 import co.edu.uniquindio.manejoEventos.model.PurchaseDecorators.*;
 import co.edu.uniquindio.manejoEventos.model.Enums.ChairStatus;
@@ -75,8 +75,8 @@ public class PurchaseView implements Initializable {
         if (currentEvent != null) {
             eventNameText.setText(currentEvent.getName());
             
-            ArrayList<Composite> zones = currentEvent.getThePlace().getZoneList();
-            for (Composite c : zones) {
+            ArrayList<ZoneComposite> zones = currentEvent.getThePlace().getZoneList();
+            for (ZoneComposite c : zones) {
                 if (c instanceof Zone) {
                     zoneChoiceBox.getItems().add((Zone) c);
                 }

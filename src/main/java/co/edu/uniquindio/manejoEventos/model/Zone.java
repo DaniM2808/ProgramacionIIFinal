@@ -1,8 +1,7 @@
 package co.edu.uniquindio.manejoEventos.model;
 
 import co.edu.uniquindio.manejoEventos.model.Enums.ChairStatus;
-import co.edu.uniquindio.manejoEventos.model.Interfaces.Composite;
-import lombok.Builder;
+import co.edu.uniquindio.manejoEventos.model.Interfaces.ZoneComposite;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 
 @Getter
 @Setter
-public class Zone implements Composite {
+public class Zone implements ZoneComposite {
     private String idZone, name;
     private int capacity;
     private double startingPrice;
