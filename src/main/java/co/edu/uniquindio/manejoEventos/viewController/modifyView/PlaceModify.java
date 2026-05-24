@@ -1,7 +1,7 @@
 package co.edu.uniquindio.manejoEventos.viewController.modifyView;
 
 import co.edu.uniquindio.manejoEventos.controller.PlaceController;
-import co.edu.uniquindio.manejoEventos.model.Interfaces.Composite;
+import co.edu.uniquindio.manejoEventos.model.Interfaces.ZoneComposite;
 import co.edu.uniquindio.manejoEventos.model.Event;
 import co.edu.uniquindio.manejoEventos.model.Place;
 import co.edu.uniquindio.manejoEventos.model.Zone;
@@ -131,7 +131,7 @@ public class PlaceModify {
     private Zone findZone(){
         String zoneID = theZone.getText();
 
-        for(Composite c : place.getZoneList()) {
+        for(ZoneComposite c : place.getZoneList()) {
             if (c instanceof Zone zone){
                 if(zone.getIdZone().equals(zoneID)){
                     return zone;

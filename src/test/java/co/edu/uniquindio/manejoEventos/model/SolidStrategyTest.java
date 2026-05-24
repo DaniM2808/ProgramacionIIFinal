@@ -1,7 +1,7 @@
 package co.edu.uniquindio.manejoEventos.model;
 
 import co.edu.uniquindio.manejoEventos.model.Enums.PaymentType;
-import co.edu.uniquindio.manejoEventos.model.Interfaces.Payment;
+import co.edu.uniquindio.manejoEventos.model.Interfaces.PaymentStrategy;
 import co.edu.uniquindio.manejoEventos.model.UserPayments.ApplePayment;
 import co.edu.uniquindio.manejoEventos.model.UserPayments.CardPayment;
 import co.edu.uniquindio.manejoEventos.model.UserPayments.PayPalPayment;
@@ -34,9 +34,9 @@ class SolidStrategyTest {
      */
     @Test
     void testSingleResponsibilityPrinciple() {
-        Payment apple = new ApplePayment();
-        Payment card = new CardPayment();
-        Payment paypal = new PayPalPayment();
+        PaymentStrategy apple = new ApplePayment();
+        PaymentStrategy card = new CardPayment();
+        PaymentStrategy paypal = new PayPalPayment();
 
         // Each component has one job: executing its specific payment logic
         assertNotNull(apple);

@@ -44,7 +44,6 @@ public class Purchase implements PurchaseClone, PurchaseComponent {
 
     private String generateId(){
         int n = EventManager.getInstance().getPurchaseList().size();
-        System.out.println(n);
         String id = "PUR-";
         if(n<10){
             id += "00" + n;
@@ -53,6 +52,7 @@ public class Purchase implements PurchaseClone, PurchaseComponent {
         } else {
             id += n;
         }
+        System.out.println(n);
         return id;
     }
 

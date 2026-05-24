@@ -6,11 +6,11 @@ import co.edu.uniquindio.manejoEventos.model.Interfaces.ServiceProxy;
 import java.util.ArrayList;
 
 
-public class Proxy  implements ServiceProxy {
+public class AdminProxy implements ServiceProxy {
     private final AdminController realService;
     private final User rolUser;
 
-    public Proxy(AdminController admin, User user){
+    public AdminProxy(AdminController admin, User user){
         this.realService = admin;
         this.rolUser = user;
     }

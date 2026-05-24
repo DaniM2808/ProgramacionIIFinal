@@ -1,8 +1,8 @@
 package co.edu.uniquindio.manejoEventos.model;
 
 import co.edu.uniquindio.manejoEventos.model.Enums.PaymentType;
-import co.edu.uniquindio.manejoEventos.model.Interfaces.Observer;
-import co.edu.uniquindio.manejoEventos.model.Interfaces.Payment;
+import co.edu.uniquindio.manejoEventos.model.Interfaces.EventObserver;
+import co.edu.uniquindio.manejoEventos.model.Interfaces.PaymentStrategy;
 import co.edu.uniquindio.manejoEventos.model.UserPayments.ApplePayment;
 import co.edu.uniquindio.manejoEventos.model.UserPayments.CardPayment;
 import co.edu.uniquindio.manejoEventos.model.UserPayments.PayPalPayment;
@@ -26,7 +26,7 @@ import javax.crypto.*;
 
 @Getter
 @Setter
-public class User implements Observer {
+public class User implements EventObserver {
     private String id, fullName, email, phoneNumber, password;
     private ArrayList<Purchase> purchaseList;
     private ArrayList<Purchase> cartList;
@@ -71,7 +71,7 @@ public class User implements Observer {
     }
 
     public boolean managePayment(PaymentType type) {
-        Payment strategy;
+        PaymentStrategy strategy;
         switch (type) {
             case APPLE:
                 strategy = new ApplePayment();

@@ -1,5 +1,5 @@
 package co.edu.uniquindio.manejoEventos.model.Interfaces;
 
-public interface Payment {
+public interface PaymentStrategy {
     boolean executePayment();
 }

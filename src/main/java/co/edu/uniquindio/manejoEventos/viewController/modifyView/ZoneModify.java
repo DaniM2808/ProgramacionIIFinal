@@ -2,7 +2,7 @@ package co.edu.uniquindio.manejoEventos.viewController.modifyView;
 
 import co.edu.uniquindio.manejoEventos.controller.ZoneController;
 import co.edu.uniquindio.manejoEventos.model.*;
-import co.edu.uniquindio.manejoEventos.model.Interfaces.Composite;
+import co.edu.uniquindio.manejoEventos.model.Interfaces.ZoneComposite;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -117,7 +117,7 @@ public class ZoneModify {
 
     private Place findPlaceByZone(Zone targetZone) {
         for (Place place : EventManager.getInstance().getPlaceList()) {
-            for (Composite c : place.getZoneList()) {
+            for (ZoneComposite c : place.getZoneList()) {
                 if (c instanceof Zone zone) {
                     if (zone.getIdZone()
                             .equals(targetZone.getIdZone())) {

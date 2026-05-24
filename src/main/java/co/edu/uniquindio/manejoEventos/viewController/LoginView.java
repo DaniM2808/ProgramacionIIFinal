@@ -49,7 +49,7 @@ public class LoginView {
             Stage stage = new Stage();
             //temp var make proxy later
             AdminController adminController = new AdminController();
-            ServiceProxy proxy = new Proxy(adminController,EventManager.getInstance().getCurrentUser());
+            ServiceProxy proxy = new AdminProxy(adminController,EventManager.getInstance().getCurrentUser());
             //
             boolean b = proxy.checkLoginAccess();
 

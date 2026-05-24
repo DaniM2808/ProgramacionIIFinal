@@ -1,5 +1,5 @@
 package co.edu.uniquindio.manejoEventos.model.Interfaces;
 
-public interface Observer {
+public interface EventObserver {
     String update(String message);
 }
