@@ -15,17 +15,22 @@ module co.edu.uniquindio.manejoEventos {
     requires jdk.compiler;
     requires java.desktop;
     requires org.apache.pdfbox;
+    requires javafx.graphics;
 
     opens co.edu.uniquindio.manejoEventos.model to javafx.base;
     opens co.edu.uniquindio.manejoEventos to javafx.fxml;
+
     exports co.edu.uniquindio.manejoEventos;
     exports co.edu.uniquindio.manejoEventos.viewController;
     exports co.edu.uniquindio.manejoEventos.model;
     exports co.edu.uniquindio.manejoEventos.model.Enums;
+
     opens co.edu.uniquindio.manejoEventos.viewController to javafx.fxml;
     opens co.edu.uniquindio.manejoEventos.viewController.modifyView to javafx.fxml;
+
     exports co.edu.uniquindio.manejoEventos.model.Interfaces;
     exports co.edu.uniquindio.manejoEventos.controller;
+
     opens co.edu.uniquindio.manejoEventos.controller to javafx.base;
     opens co.edu.uniquindio.manejoEventos.model.Interfaces to javafx.base;
 }

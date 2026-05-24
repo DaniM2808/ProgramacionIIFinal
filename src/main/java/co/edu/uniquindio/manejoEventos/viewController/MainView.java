@@ -13,6 +13,8 @@ import co.edu.uniquindio.manejoEventos.model.Place;
 import co.edu.uniquindio.manejoEventos.model.User;
 import co.edu.uniquindio.manejoEventos.model.Purchase;
 import co.edu.uniquindio.manejoEventos.model.Ticket;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -27,7 +29,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,15 +48,15 @@ public class MainView implements Initializable {
     @FXML
     private TableColumn<Event, String> nameColumn;
     @FXML
-    private TableColumn <Event, String> cityColumn;
+    private TableColumn<Event, String> cityColumn;
     @FXML
-    private TableColumn <Event, LocalDateTime> dateColumn;
+    private TableColumn<Event, LocalDateTime> dateColumn;
     @FXML
-    private TableColumn <Event, Place> placeColumn;
+    private TableColumn<Event, Place> placeColumn;
     @FXML
-    private TableColumn <Event, EventType> typeColumn;
+    private TableColumn<Event, EventType> typeColumn;
     @FXML
-    private TableColumn <Event, EventStatus> statusColumn;
+    private TableColumn<Event, EventStatus> statusColumn;
 
     @FXML
     private TableView<Purchase> historyTable;
@@ -65,7 +70,6 @@ public class MainView implements Initializable {
     private TableColumn<Purchase, String> historyPaymentColumn;
     @FXML
     private TableColumn<Purchase, Integer> historyTicketsColumn;
-
 
     @FXML
     private TableView<Purchase> cartTable;
@@ -103,7 +107,7 @@ public class MainView implements Initializable {
     Alert errorAlert = new Alert(Alert.AlertType.ERROR);
     Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
 
-    //example implementation
+    // example implementation
     @FXML
     private void crazyAction(ActionEvent event) {
         switchMenu(event, "registerMenu.fxml");
@@ -112,7 +116,7 @@ public class MainView implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        if (eventTable != null){
+        if (eventTable != null) {
             userDataText.setText(EventManager.getInstance().getCurrentUser().toString());
             nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
             cityColumn.setCellValueFactory(new PropertyValueFactory<>("city"));
@@ -126,41 +130,42 @@ public class MainView implements Initializable {
         }
 
         if (historyTable != null) {
-            historyIdPurchaseColumn.setCellValueFactory(cellData ->
-                    new SimpleStringProperty(cellData.getValue().getTicketList().isEmpty() ? "" : cellData.getValue().getIdPurchase()));
+            historyIdPurchaseColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
+                    cellData.getValue().getTicketList().isEmpty() ? "" : cellData.getValue().getIdPurchase()));
             historyTotalColumn.setCellValueFactory(new PropertyValueFactory<>("total"));
-            historyPaymentColumn.setCellValueFactory(cellData ->
-                    new SimpleStringProperty(cellData.getValue().getPaymentType().toString()));
-            historyDateColumn.setCellValueFactory(cellData ->
-                    new SimpleObjectProperty<>(cellData.getValue().getDateCreated().toLocalDate()));
-            historyTicketsColumn.setCellValueFactory(cellData ->
-                    new SimpleIntegerProperty(cellData.getValue().getTicketList().size()).asObject());
+            historyPaymentColumn.setCellValueFactory(
+                    cellData -> new SimpleStringProperty(cellData.getValue().getPaymentType().toString()));
+            historyDateColumn.setCellValueFactory(
+                    cellData -> new SimpleObjectProperty<>(cellData.getValue().getDateCreated().toLocalDate()));
+            historyTicketsColumn.setCellValueFactory(
+                    cellData -> new SimpleIntegerProperty(cellData.getValue().getTicketList().size()).asObject());
         }
 
         if (cartTable != null) {
-            cartEventColumn.setCellValueFactory(cellData -> 
-                new SimpleStringProperty(cellData.getValue().getTicketList().isEmpty() ? "" : cellData.getValue().getTicketList().get(0).getTheEvent().getName()));
+            cartEventColumn.setCellValueFactory(
+                    cellData -> new SimpleStringProperty(cellData.getValue().getTicketList().isEmpty() ? ""
+                            : cellData.getValue().getTicketList().get(0).getTheEvent().getName()));
             cartTotalColumn.setCellValueFactory(new PropertyValueFactory<>("total"));
-            cartPaymentColumn.setCellValueFactory(cellData -> 
-                new SimpleStringProperty(cellData.getValue().getPaymentType().toString()));
-            cartTicketsColumn.setCellValueFactory(cellData -> 
-                new SimpleIntegerProperty(cellData.getValue().getTicketList().size()).asObject());
+            cartPaymentColumn.setCellValueFactory(
+                    cellData -> new SimpleStringProperty(cellData.getValue().getPaymentType().toString()));
+            cartTicketsColumn.setCellValueFactory(
+                    cellData -> new SimpleIntegerProperty(cellData.getValue().getTicketList().size()).asObject());
         }
     }
 
-
-    public void fillUpEventList(){
+    public void fillUpEventList() {
         eventTable.getItems().addAll(EventManager.getInstance().getEventList());
         eventTable.refresh();
     }
 
     @FXML
-    public void fillUpFilteredEventList(){
+    public void fillUpFilteredEventList() {
         eventTable.getItems().clear();
         String city = cityField.getText().toLowerCase();
-        ArrayList<Event> check = EventManager.getInstance().getEventByFilter(city, typeChoiceBox.getValue(), statusChoiceBox.getValue());
+        ArrayList<Event> check = EventManager.getInstance().getEventByFilter(city, typeChoiceBox.getValue(),
+                statusChoiceBox.getValue());
         eventTable.getItems().addAll(check);
-        if (check.isEmpty()){
+        if (check.isEmpty()) {
             infoAlert.setContentText("No se han encontrado eventos con tu criterio!");
             infoAlert.showAndWait();
             return;
@@ -170,7 +175,7 @@ public class MainView implements Initializable {
     }
 
     @FXML
-    public void checkEventDetailsAction(ActionEvent event){
+    public void checkEventDetailsAction(ActionEvent event) {
         Event selectedEvent = eventTable.getSelectionModel().getSelectedItem();
         if (selectedEvent == null) {
             errorAlert.setContentText("Por favor, seleccione un evento de la lista para ver sus detalles.");
@@ -181,7 +186,6 @@ public class MainView implements Initializable {
         switchMenu(event, "eventDetailsMenu.fxml");
     }
 
-
     @FXML
     public void buyEventAction(ActionEvent event) {
         Event selectedEvent = eventTable.getSelectionModel().getSelectedItem();
@@ -190,7 +194,8 @@ public class MainView implements Initializable {
             errorAlert.showAndWait();
             return;
         }
-        if (selectedEvent.getEventStatus().equals(EventStatus.CANCELLED) || selectedEvent.getEventStatus().equals(EventStatus.DRAFT)) {
+        if (selectedEvent.getEventStatus().equals(EventStatus.CANCELLED)
+                || selectedEvent.getEventStatus().equals(EventStatus.DRAFT)) {
             errorAlert.setContentText("Por favor, seleccione un evento valido.");
             errorAlert.showAndWait();
             return;
@@ -200,11 +205,12 @@ public class MainView implements Initializable {
     }
 
     @FXML
-    public void updateUserAction(ActionEvent event){
+    public void updateUserAction(ActionEvent event) {
         User oldUserdata = EventManager.getInstance().getCurrentUser();
-        User newData = new User(oldUserdata.getId(), getNameFromField(), getEmailFromField(), getPhoneNumberFromField(), getPasswordFromField());
+        User newData = new User(oldUserdata.getId(), getNameFromField(), getEmailFromField(), getPhoneNumberFromField(),
+                getPasswordFromField());
         boolean check = UserController.updateUser(newData);
-        if (!check){
+        if (!check) {
             errorAlert.setContentText("No se ha ingresado, \nverifique que los datos dados sean correctos");
             errorAlert.showAndWait();
             return;
@@ -223,7 +229,7 @@ public class MainView implements Initializable {
 
     public static void switchMenu(ActionEvent event, String menuFileName) {
         try {
-            //check this 4 issues regarding classes                      |
+            // check this 4 issues regarding classes |
             Parent mainRoot = FXMLLoader.load(Objects.requireNonNull(Application.class.getResource(menuFileName)));
             //
             Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -241,19 +247,19 @@ public class MainView implements Initializable {
         }
     }
 
-    public String getNameFromField(){
+    public String getNameFromField() {
         return nameField.getText();
     }
 
-    public String getPhoneNumberFromField(){
+    public String getPhoneNumberFromField() {
         return phoneField.getText();
     }
 
-    public String getEmailFromField(){
+    public String getEmailFromField() {
         return emailField.getText();
     }
 
-    public String getPasswordFromField(){
+    public String getPasswordFromField() {
         return passwordField.getText();
     }
 
@@ -269,7 +275,7 @@ public class MainView implements Initializable {
     }
 
     @FXML
-    public void refreshUserTabAction(){
+    public void refreshUserTabAction() {
         userDataText.setText(EventManager.getInstance().getCurrentUser().toString());
         refreshHistoryAction();
     }
@@ -295,7 +301,7 @@ public class MainView implements Initializable {
         User currentUser = EventManager.getInstance().getCurrentUser();
         boolean success = currentUser.managePayment(selected.getPaymentType());
         if (success) {
-            if (PurchaseView.checkTheresChairList()){
+            if (PurchaseView.checkTheresChairList()) {
                 for (Ticket t : selected.getTicketList()) {
                     t.getTheChair().setChairStatus(ChairStatus.SOLD);
                     t.setTicketStatus(TicketStatus.ACTIVE);
@@ -343,7 +349,25 @@ public class MainView implements Initializable {
     }
 
     @FXML
-    public void generateAction(){
+    public void cloneCartAction(ActionEvent event) {
+        Purchase selected = cartTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showAlert("Seleccione una compra del carrito para clonar.");
+            return;
+        }
+        Purchase cloned = selected.cloneObject();
+        // Give the cloned purchase a distinct ID to avoid identical collisions
+        cloned.setIdPurchase(cloned.getIdPurchase() + "-C");
+        
+        EventManager.getInstance().getCurrentUser().getCartList().add(cloned);
+        refreshCartAction();
+        
+        infoAlert.setContentText("La reserva ha sido clonada exitosamente.");
+        infoAlert.showAndWait();
+    }
+
+    @FXML
+    public void generateAction() {
         EventManager.getInstance().getCurrentUser().generateReceipt();
         infoAlert.setContentText("Se ha generado el recibo");
         infoAlert.showAndWait();
@@ -352,5 +376,31 @@ public class MainView implements Initializable {
     private void showAlert(String msg) {
         errorAlert.setContentText(msg);
         errorAlert.showAndWait();
+    }
+
+    public static void showNotification(String message) {
+        Platform.runLater(() -> {
+            Window window = Window.getWindows().stream()
+                    .filter(Window::isShowing).findFirst().orElse(null);
+            if (window != null) {
+                Popup popup = new Popup();
+                Label label = new Label("🔔 " + message);
+                label.setStyle(
+                        "-fx-background-color: #323232; -fx-text-fill: white; -fx-padding: 15px; -fx-font-size: 14px; -fx-background-radius: 8px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 3);");
+                popup.getContent().add(label);
+
+                popup.setOnShown(e -> {
+                    popup.setX(window.getX() + window.getWidth() / 2 - popup.getWidth() / 2);
+                    popup.setY(window.getY() + 50);
+                });
+
+                popup.show(window);
+
+                PauseTransition delay = new PauseTransition(
+                        Duration.seconds(3));
+                delay.setOnFinished(e -> popup.hide());
+                delay.play();
+            }
+        });
     }
 }

@@ -27,11 +27,11 @@ public class Application extends javafx.application.Application {
         // Admin admin = new Admin("Juan,)
         User user = new User("Danny", "dan@email.com", "572257", "WhenISeeIt");
         EventManager.getInstance().addUser(user);
-        Zone zone = Zone.builder().idZone("Z-01").name("VIP / Front Stage").capacity(50).startingPrice(60000.0).build();
+        Zone zone = new Zone("Z-01","VIP / Front Stage", 50, 60000.0);
         for (int i = 1; i <= zone.getCapacity(); i++) {
             zone.addChair(new Chair("V" + i, (i - 1) / 10 + 1, (i - 1) % 10 + 1, ChairStatus.AVAILABLE, zone));
         }
-        Zone zone1 = Zone.builder().idZone("Z-02").name("General Admission").capacity(15).startingPrice(42000.0).build();
+        Zone zone1 = new Zone("Z-02", "General Admission", 15, 42000.0);
 
         Place place = new Place("P-001", "Makuhari Messe", "Chiba, Japan");
         Place place2 = new Place("P-002", "Zepp Tokyo", "Tokyo, Japan");

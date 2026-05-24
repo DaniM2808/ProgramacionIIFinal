@@ -32,7 +32,7 @@ public class User implements Observer {
     private ArrayList<Purchase> cartList;
     private boolean rootAccess = false;
 
-    //All these variables are used to encrypt the password, thx.
+    // All these variables are used to encrypt the password, thx.
     public static final KeyGenerator keygenerator;
     public static final Cipher desCipher;
     static {
@@ -43,7 +43,11 @@ public class User implements Observer {
             throw new RuntimeException(e);
         }
     }
-    public void addPurchase(Purchase purchase){purchaseList.add(purchase);}
+
+    public void addPurchase(Purchase purchase) {
+        purchaseList.add(purchase);
+    }
+
     public static final SecretKey myDesKey = keygenerator.generateKey();
 
     public User(String fullName, String email, String phoneNumber, String password) {
@@ -85,7 +89,8 @@ public class User implements Observer {
     }
 
     // Source - https://stackoverflow.com/a/20536597
-    // Posted by Suresh Atta, modified by community. See post 'Timeline' for change history
+    // Posted by Suresh Atta, modified by community. See post 'Timeline' for change
+    // history
     // Retrieved 2026-05-07, License - CC BY-SA 3.0
     protected String getSaltString() {
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -122,18 +127,21 @@ public class User implements Observer {
     @Override
     public String toString() {
         return "ID: " + id + "\n" +
-               "Nombre: " + fullName + "\n" +
-               "Correo: " + email + "\n" +
-               "Celular: " + phoneNumber;
+                "Nombre: " + fullName + "\n" +
+                "Correo: " + email + "\n" +
+                "Celular: " + phoneNumber;
     }
 
     @Override
     public String update(String message) {
         System.out.println(fullName + " recibio una nueva notificacion: " + message);
+        if (EventManager.getInstance().getCurrentUser() != null && EventManager.getInstance().getCurrentUser().getId().equals(this.id)) {
+            co.edu.uniquindio.manejoEventos.viewController.MainView.showNotification(message);
+        }
         return message;
     }
 
-    public void generateReceipt(){
+    public void generateReceipt() {
         try {
             PDDocument document = new PDDocument();
             PDPage page = new PDPage(PDRectangle.A4);

@@ -64,7 +64,7 @@ public class LoginView {
             } else if (b) {
                 FXMLLoader fxmlLoader2 = new FXMLLoader(Application.class.getResource("adminMenu.fxml"));
                 Scene scene2 = new Scene(fxmlLoader2.load());
-               // ThemeManager.applyTheme(scene2);
+                ThemeManager.applyTheme(scene2);
                 stage.setResizable(false);
                 stage.setTitle("Admin Menu");
                 stage.setScene(scene2);

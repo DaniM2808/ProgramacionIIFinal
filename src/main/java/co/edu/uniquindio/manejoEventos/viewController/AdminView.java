@@ -22,11 +22,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -43,6 +46,8 @@ import static co.edu.uniquindio.manejoEventos.viewController.MainView.switchMenu
 
 public class AdminView {
 
+    @FXML
+    private Text userDataText;
     @FXML
     private TextField newEventID, newEventName, newEventDescription, newEventCity, newEventTime,
                       newPlaceID, newPlaceName, newPlaceAddress,
@@ -121,15 +126,15 @@ public class AdminView {
 
 
     @FXML
-    private javafx.scene.chart.LineChart<String, Number> ventasPorPeriodoChart;
+    private LineChart<String, Number> ventasPorPeriodoChart;
     @FXML
-    private javafx.scene.chart.BarChart<String, Number> ocupacionPorZonaChart;
+    private BarChart<String, Number> ocupacionPorZonaChart;
     @FXML
-    private javafx.scene.chart.PieChart ingresosServiciosChart;
+    private PieChart ingresosServiciosChart;
     @FXML
-    private javafx.scene.chart.PieChart tasaCancelacionChart;
+    private PieChart tasaCancelacionChart;
     @FXML
-    private javafx.scene.chart.BarChart<String, Number> topEventosChart;
+    private BarChart<String, Number> topEventosChart;
     @FXML
     private AnchorPane scenePane;
 
@@ -168,7 +173,11 @@ public class AdminView {
 
             currentPlace = chairThePlace.getValue();
             if(currentPlace!=null){
-                chairThePlace.setItems(observablePlaces);
+                //
+                observableZones.setAll(currentPlace.getZoneList());
+             //   chairThePlace.setItems(observablePlaces);
+                chairTheZone.setItems(observableZones);
+                //
                 System.out.print("Prueba taller final");
             }
 
@@ -761,6 +770,8 @@ public class AdminView {
         });
 
         loadReportData();
+        //
+        userDataText.setText(EventManager.getInstance().getCurrentUser().toString());
     }
 
     private void loadReportData() {
@@ -860,9 +871,33 @@ public class AdminView {
         String city = newEventCity.getText();
         Place place = newEventPlace.getValue();
         LocalDate date = newEventDate.getValue();
-        LocalTime time = LocalTime.parse(newEventTime.getText());
+        String timeStr = newEventTime.getText();
         EventType et = newEventType.getValue();
         EventPolicy ep = newEventPolicy.getValue();
+
+        if (id == null || id.trim().isEmpty() || name == null || name.trim().isEmpty() || 
+            description == null || description.trim().isEmpty() || city == null || city.trim().isEmpty() || 
+            place == null || date == null || timeStr == null || timeStr.trim().isEmpty() || 
+            et == null || ep == null) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Error");
+            error.setHeaderText("Missing fields");
+            error.setContentText("Please fill in all the required fields to create an event.");
+            error.showAndWait();
+            return;
+        }
+
+        LocalTime time;
+        try {
+            time = LocalTime.parse(timeStr.trim());
+        } catch (Exception ex) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Error");
+            error.setHeaderText("Invalid time format");
+            error.setContentText("Please use the HH:mm format (e.g. 14:30) for the event time.");
+            error.showAndWait();
+            return;
+        }
 
         Event e = new Event(id,name,description,city,LocalDateTime.of(date,time),place,et,ep);
 
@@ -919,6 +954,15 @@ public class AdminView {
         String name = newPlaceName.getText();
         String address = newPlaceAddress.getText();
 
+        if (id == null || id.trim().isEmpty() || name == null || name.trim().isEmpty() || address == null || address.trim().isEmpty()) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Error");
+            error.setHeaderText("Missing fields");
+            error.setContentText("Please fill in all the required fields to create a place.");
+            error.showAndWait();
+            return;
+        }
+
         Place p = new Place(id, name, address);
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -963,12 +1007,44 @@ public class AdminView {
 
     @FXML
     private void createZone(){
+        if (currentPlace == null) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Error");
+            error.setHeaderText("No Place Selected");
+            error.setContentText("Please select a place first to create a zone.");
+            error.showAndWait();
+            return;
+        }
+
         String id = newZoneID.getText();
         String name = newZoneName.getText();
-        int capacity = Integer.parseInt(newZoneCapacity.getText());
-        double price = Double.parseDouble(newZonePrice.getText());
+        String capStr = newZoneCapacity.getText();
+        String priceStr = newZonePrice.getText();
 
-        Zone newZone = Zone.builder().idZone(id).name(name).capacity(capacity).startingPrice(price).build();
+        if (id == null || id.trim().isEmpty() || name == null || name.trim().isEmpty() || capStr == null || capStr.trim().isEmpty() || priceStr == null || priceStr.trim().isEmpty()) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Error");
+            error.setHeaderText("Missing fields");
+            error.setContentText("Please fill in all the required fields to create a zone.");
+            error.showAndWait();
+            return;
+        }
+
+        int capacity;
+        double price;
+        try {
+            capacity = Integer.parseInt(capStr.trim());
+            price = Double.parseDouble(priceStr.trim());
+        } catch (NumberFormatException e) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Error");
+            error.setHeaderText("Invalid Format");
+            error.setContentText("Capacity must be an integer and Price must be a number.");
+            error.showAndWait();
+            return;
+        }
+
+        Zone newZone = new Zone(id, name, capacity, price);
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
@@ -1017,10 +1093,42 @@ public class AdminView {
 
     @FXML
     private void createChair(){
+        if (currentZone == null) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Error");
+            error.setHeaderText("No Zone Selected");
+            error.setContentText("Please select a zone first to create a chair.");
+            error.showAndWait();
+            return;
+        }
+
         String id = newChairID.getText();
-        int row = Integer.parseInt(newChairRow.getText());
-        int number = Integer.parseInt(newChairNumber.getText());
+        String rowStr = newChairRow.getText();
+        String numberStr = newChairNumber.getText();
         ChairStatus status = newChairStatus.getValue();
+
+        if (id == null || id.trim().isEmpty() || rowStr == null || rowStr.trim().isEmpty() || numberStr == null || numberStr.trim().isEmpty() || status == null) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Error");
+            error.setHeaderText("Missing fields");
+            error.setContentText("Please fill in all the required fields to create a chair.");
+            error.showAndWait();
+            return;
+        }
+
+        int row;
+        int number;
+        try {
+            row = Integer.parseInt(rowStr.trim());
+            number = Integer.parseInt(numberStr.trim());
+        } catch (NumberFormatException e) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Error");
+            error.setHeaderText("Invalid Format");
+            error.setContentText("Row and Number must be integers.");
+            error.showAndWait();
+            return;
+        }
 
         Chair newChair = new Chair(id, row, number, status, currentZone);
         newChair.setTheZone(currentZone);
@@ -1125,7 +1233,10 @@ public class AdminView {
     @FXML
     private void searchZone(){
         String id = newZoneID.getText();
-        Zone searchedZone = adminController.searchZoneById(id, currentPlace);
+        Zone searchedZone = null;
+        if (currentPlace != null){
+            searchedZone = adminController.searchZoneById(id, currentPlace);
+        }
 
         if(searchedZone != null){
             Alert information = new Alert(Alert.AlertType.INFORMATION);
