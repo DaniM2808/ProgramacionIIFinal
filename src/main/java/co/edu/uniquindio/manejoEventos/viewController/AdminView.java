@@ -978,7 +978,7 @@ public class AdminView {
         int capacity = Integer.parseInt(newZoneCapacity.getText());
         double price = Double.parseDouble(newZonePrice.getText());
 
-        Zone newZone = Zone.builder().idZone(id).name(name).capacity(capacity).startingPrice(price).build();
+        Zone newZone = new Zone(id, name, capacity, price);
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
